@@ -11,6 +11,6 @@ class Turbine:
 		self.loss    = 0.0
 
 	def calcFitness(self, loss, avg):
-		if loss > avg-0.3:
+		if loss > avg+0.2:
 			self.loss    = loss
 			self.fitness = 0
