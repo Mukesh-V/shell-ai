@@ -9,6 +9,9 @@
 ##### Note : The wind data of 2017 has the highest AEP
 
 ```python
-#to test the algorithm
+#install dependencies
+pip3 install -r requirements.txt
+
+#run the algorithm
 python3 game.py
 ```
