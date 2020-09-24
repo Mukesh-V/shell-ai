@@ -41,7 +41,6 @@ class Pop:
 
 	def run(self, n):
 		print('Running : ', n)
-		print(np.mean(self.losses))
 		i = 0
 		while(True):
 			self.pop[i].calcFitness(self.losses[i], np.mean(self.losses))
@@ -90,10 +89,10 @@ class Pop:
 			self.randomSpawn()
 
 	def crossover(self, p1, p2):
-		weight = random.uniform(0, 1)
+		weight = random.uniform(0, 2)
 		if self.pool[p1].loss < self.pool[p2].loss:
 			if weight < 0.5:
-				weight = 1 - weight
+				weight = 2 - weight
 		crossed = {
 			'x' : weight * self.pool[p1].dna['x'] + (1-weight) * self.pool[p2].dna['x'],
 			'y' : weight * self.pool[p1].dna['y'] + (1-weight) * self.pool[p2].dna['y']
