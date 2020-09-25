@@ -19,17 +19,71 @@ class Pop:
 		self.pool = []
 		c = 0
 
+		dna = {'x': clearance, 'y': clearance}
+		obj = self.spawn(dna)
+		if obj:
+			self.coords.append([clearance, clearance])
+			self.pop.append(obj)
+
+		dna = {'x': limit - clearance, 'y': clearance}
+		obj = self.spawn(dna)
+		if obj:
+			self.coords.append([limit - clearance, clearance])
+			self.pop.append(obj)
+
+		dna = {'x': clearance, 'y': limit - clearance}
+		obj = self.spawn(dna)
+		if obj:
+			self.coords.append([clearance, limit - clearance])
+			self.pop.append(obj)
+/9 
+		dna = {'x': limit - clearance, 'y': limit - clearance}
+		obj = self.spawn(dna)
+		if obj:
+			self.coords.append([limit - clearance, limit - clearance])
+			self.pop.append(obj)
+
+		#dna = {'x': clearance, 'y': limit/2}
+		#obj = self.spawn(dna)
+		#if obj:
+		#	self.coords.append([clearance, limit/2])
+		#	self.pop.append(obj)
+
+		#dna = {'x': limit/2, 'y': clearance}
+		#obj = self.spawn(dna)
+		#if obj:
+		#self.coords.append([limit/2, clearance])
+		#	self.pop.append(obj)
+
+		#dna = {'x': limit/2, 'y': limit - clearance}
+		#obj = self.spawn(dna)
+		#if obj:
+		#	self.coords.append([limit/2, limit - clearance])
+		#	self.pop.append(obj)
+
+		#dna = {'x': limit - clearance, 'y': limit/2}
+		#obj = self.spawn(dna)
+		#if obj:
+		#	self.coords.append([limit - clearance, limit/2])
+		#	self.pop.append(obj)
+
+		dna = {'x': limit/2, 'y': limit / 2}
+		obj = self.spawn(dna)
+		if obj:
+			self.coords.append([limit/2, limit / 2])
+			self.pop.append(obj)
+
 		while(True):
-			x, y = random.uniform(clearance, limit+clearance), random.uniform(clearance, limit+clearance)
+			x, y = random.uniform(clearance, limit-clearance), random.uniform(clearance, limit-clearance)
 			dna = {'x': x, 'y': y}
 			obj = self.spawn(dna)
 			if obj:
 				self.coords.append([x, y])
 				self.pop.append(obj)
 				c += 1
-			if c == n:
+			if c == n-5:
 				break
-
+              
 	def spawn(self, dna):
 		x, y = dna['x'], dna['y']
 		obj = Turbine(x, y)

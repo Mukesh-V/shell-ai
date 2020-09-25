@@ -21,6 +21,6 @@ if __name__ == "__main__":
         AEP = getAEP(config['rad'], turbo_coords, power_curve, wind_inst_freq, n_wind_instances, cos_dir, sin_dir, wind_sped_stacked, C_t)
         print(AEP)
         c += 1
-        if AEP > 565.0:
+        if AEP > 569.0:
             population.writeCSV(year + '_' + str(round(AEP,2)) + '.csv')
             break
