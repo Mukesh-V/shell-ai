@@ -36,36 +36,12 @@ class Pop:
 		if obj:
 			self.coords.append([clearance, limit - clearance])
 			self.pop.append(obj)
-/9 
+
 		dna = {'x': limit - clearance, 'y': limit - clearance}
 		obj = self.spawn(dna)
 		if obj:
 			self.coords.append([limit - clearance, limit - clearance])
 			self.pop.append(obj)
-
-		#dna = {'x': clearance, 'y': limit/2}
-		#obj = self.spawn(dna)
-		#if obj:
-		#	self.coords.append([clearance, limit/2])
-		#	self.pop.append(obj)
-
-		#dna = {'x': limit/2, 'y': clearance}
-		#obj = self.spawn(dna)
-		#if obj:
-		#self.coords.append([limit/2, clearance])
-		#	self.pop.append(obj)
-
-		#dna = {'x': limit/2, 'y': limit - clearance}
-		#obj = self.spawn(dna)
-		#if obj:
-		#	self.coords.append([limit/2, limit - clearance])
-		#	self.pop.append(obj)
-
-		#dna = {'x': limit - clearance, 'y': limit/2}
-		#obj = self.spawn(dna)
-		#if obj:
-		#	self.coords.append([limit - clearance, limit/2])
-		#	self.pop.append(obj)
 
 		dna = {'x': limit/2, 'y': limit / 2}
 		obj = self.spawn(dna)
