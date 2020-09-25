@@ -19,34 +19,20 @@ class Pop:
 		self.pool = []
 		c = 0
 
-		dna = {'x': clearance, 'y': clearance}
-		obj = self.spawn(dna)
-		if obj:
-			self.coords.append([clearance, clearance])
-			self.pop.append(obj)
+		corners = [[clearance, clearance],[limit-clearance,clearance],[clearance,limit-clearance],[limit-clearance,limit-clearance]]
+		center = [limit/2, limit/2]
 
-		dna = {'x': limit - clearance, 'y': clearance}
-		obj = self.spawn(dna)
-		if obj:
-			self.coords.append([limit - clearance, clearance])
-			self.pop.append(obj)
+		for i, coord in enumerate(corners):
+			dna = { 'x' : coord[0], 'y' : coord[1] }
+			obj = self.spawn(dna)
+			if obj:
+				self.coords.append(coord)
+				self.pop.append(obj)
 
-		dna = {'x': clearance, 'y': limit - clearance}
+		dna = {'x': center[0], 'y': center[1]}
 		obj = self.spawn(dna)
 		if obj:
-			self.coords.append([clearance, limit - clearance])
-			self.pop.append(obj)
-
-		dna = {'x': limit - clearance, 'y': limit - clearance}
-		obj = self.spawn(dna)
-		if obj:
-			self.coords.append([limit - clearance, limit - clearance])
-			self.pop.append(obj)
-
-		dna = {'x': limit/2, 'y': limit / 2}
-		obj = self.spawn(dna)
-		if obj:
-			self.coords.append([limit/2, limit / 2])
+			self.coords.append(center)
 			self.pop.append(obj)
 
 		while(True):

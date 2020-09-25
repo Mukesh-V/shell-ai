@@ -2,6 +2,7 @@ from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 def config():
     turbine =  {   
@@ -123,3 +124,14 @@ def getAvgLoss(turb_rad, turb_coords, power_curve, wind_inst_freq,
 
     avg_losses = np.mean(sped_deficit_eff, axis=0)
     return(avg_losses)
+
+def plotPts(coords, AEP, interval):
+    plot_pts = np.array(coords)
+    x = plot_pts[:,0]
+    y = plot_pts[:,1]
+    plt.title('Wind Farm')
+    plt.scatter(x,y)
+    plt.draw()
+    plt.figtext(0.5, 0.01, str(round(AEP,2)), ha="center", fontsize=18, bbox={"facecolor":"orange", "alpha":0.5, "pad":5})
+    plt.pause(interval)
+    plt.clf()
