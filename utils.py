@@ -121,8 +121,10 @@ def getAvgLoss(turb_rad, turb_coords, power_curve, wind_inst_freq,
     sped_deficit = (1-np.sqrt(1-C_t))*((turb_rad/(turb_rad + 0.05*x_dist))**2) 
     sped_deficit[((x_dist <= 0) | ((x_dist > 0) & (y_dist > (turb_rad + 0.05*x_dist))))] = 0.0
     sped_deficit_eff  = np.sqrt(np.sum(np.square(sped_deficit), axis = 2))
+    wind_sped_eff     = wind_sped_stacked*(sped_deficit_eff)
 
-    avg_losses = np.mean(sped_deficit_eff, axis=0)
+
+    avg_losses = np.mean(wind_sped_eff, axis=0)
     return(avg_losses)
 
 def plotPts(coords, AEP, interval):

@@ -20,7 +20,6 @@ class Pop:
 		c = 0
 
 		corners = [[clearance, clearance],[limit-clearance,clearance],[clearance,limit-clearance],[limit-clearance,limit-clearance]]
-		center = [limit/2, limit/2]
 
 		for i, coord in enumerate(corners):
 			dna = { 'x' : coord[0], 'y' : coord[1] }
@@ -28,12 +27,6 @@ class Pop:
 			if obj:
 				self.coords.append(coord)
 				self.pop.append(obj)
-
-		dna = {'x': center[0], 'y': center[1]}
-		obj = self.spawn(dna)
-		if obj:
-			self.coords.append(center)
-			self.pop.append(obj)
 
 		while(True):
 			x, y = random.uniform(clearance, limit-clearance), random.uniform(clearance, limit-clearance)
@@ -43,7 +36,7 @@ class Pop:
 				self.coords.append([x, y])
 				self.pop.append(obj)
 				c += 1
-			if c == n-5:
+			if c == n-4:
 				break
               
 	def spawn(self, dna):
@@ -92,17 +85,6 @@ class Pop:
 				self.coords.append([obj.dna['x'], obj.dna['y']])
 			else:
 				return self.mutate()
-
-	def randomSpawn(self):
-		x, y = random.uniform(clearance, limit+clearance), random.uniform(clearance, limit+clearance)
-		dna = {'x': x, 'y': y}
-		obj = self.spawn(dna)
-		if obj:
-			self.pop.append(obj)
-			self.losses = np.append(self.losses, 0)
-			self.coords.append([x, y])
-		else:
-			self.randomSpawn()
 
 	def crossover(self, p1, p2):
 		weight = random.uniform(0, 2)
