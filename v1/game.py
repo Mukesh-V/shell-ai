@@ -10,8 +10,8 @@ if __name__ == "__main__":
     config = config()
     population = Pop(50)
     year = '2017'
-    power_curve   =  loadPowerCurve('./Dataset/power_curve.csv')
-    wind_inst_freq =  binWindResourceData('./Dataset/Wind Data/wind_data_' + year + '.csv')   
+    power_curve   =  loadPowerCurve('../Dataset/power_curve.csv')
+    wind_inst_freq =  binWindResourceData('../Dataset/Wind Data/wind_data_' + year + '.csv')   
     n_wind_instances, cos_dir, sin_dir, wind_sped_stacked, C_t = preProcessing(power_curve)
     c = 1
 
