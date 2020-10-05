@@ -12,6 +12,6 @@
 #install dependencies
 pip3 install -r requirements.txt
 
-#run the algorithm
-python3 game.py
+#run algorithms : <algorithm> = v1, v2
+python3 <algorithm>/game.py
 ```

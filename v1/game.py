@@ -10,8 +10,14 @@ if __name__ == "__main__":
     config = config()
     population = Pop(50)
     year = '2017'
-    power_curve   =  loadPowerCurve('../Dataset/power_curve.csv')
-    wind_inst_freq =  binWindResourceData('../Dataset/Wind Data/wind_data_' + year + '.csv')   
+
+    base = path.dirname(__file__)
+    power_file = path.abspath(path.join(base, "..","Dataset/power_curve.csv"))
+    wind_file_name = "Dataset/Wind Data/wind_data_" + year + ".csv"
+    wind_file = path.abspath(path.join(base, "..",wind_file_name))
+
+    power_curve   =  loadPowerCurve(power_file)
+    wind_inst_freq =  binWindResourceData(wind_file)   
     n_wind_instances, cos_dir, sin_dir, wind_sped_stacked, C_t = preProcessing(power_curve)
     c = 1
 
