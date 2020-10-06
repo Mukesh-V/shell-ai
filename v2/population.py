@@ -21,9 +21,17 @@ class Pop:
 		self.pop    = []
 		self.losses = []
 		self.pool   = []
-		self.thresh = 0
+		self.thresh = 0.3
 
-		for i in range(0, num):
+		corners = [[clearance, clearance],[limit-clearance,clearance],[clearance,limit-clearance],[limit-clearance,limit-clearance]]
+
+		for i, coord in enumerate(corners):
+			obj = Turbine()
+			for j in range(0, life):
+				obj.dna[j] = coord
+			self.pop.append(obj)
+
+		for i in range(0, num-4):
 			obj = Turbine()
 			self.pop.append(obj)
 
@@ -37,7 +45,7 @@ class Pop:
 			self.pop[i].dna[self.idx] = self.coords[i]
 
 	def check(self, i):
-		if indivCheckConstraints(self.coords[i], self.coords, self.config['dia']):
+		if indivCheckConstraints(i, self.coords, self.config['dia']):
 			return self.coords[i]
 		else:
 			x, y = random.uniform(clearance, limit-clearance), random.uniform(clearance, limit-clearance)
@@ -46,17 +54,19 @@ class Pop:
 
 	def eval(self):
 		avg = np.mean(self.losses)
+		std = np.std(self.losses)
 		for i in range(0, num):
-			self.pop[i].loss = self.losses[i]
-			self.pop[i].calcFitness(avg)
+			self.pop[i].loss = (self.losses[i] - avg)/std
+			self.pop[i].calcFitness()
 
 	def selection(self):
+		print('selection')
 		fitness_arr = np.asarray([pop.fitness for pop in self.pop])
-		self.thresh = np.mean(fitness_arr)
-		print('selection : ', self.thresh)
-		print(fitness_arr)
+		avg = np.mean(fitness_arr)
+		std = np.std(fitness_arr)
+		print((fitness_arr - avg)/ std)
 		for i in range(0, num):
-			if self.pop[i].fitness >= self.thresh:
+			if (self.pop[i].fitness - avg )/ std >= self.thresh:
 				self.pool.append(self.pop[i])
 
 	def crossover(self):

@@ -3,7 +3,8 @@ import random
 
 limit  =  4000.0
 clearance = 50.0
-life      =   50
+life      =   15
+thresh    = -0.1
 
 class Turbine:
 	def __init__(self):
@@ -11,16 +12,16 @@ class Turbine:
 		for i in range(0, life):
 			x, y = random.uniform(clearance, limit-clearance), random.uniform(clearance, limit-clearance)
 			self.dna.append([x, y])
-		self.fitness = 100.0
+		self.fitness = 1.0
 		self.loss    = 0.0
 
-	def calcFitness(self, avg):
-		if self.loss < avg:
+	def calcFitness(self):
+		if self.loss < thresh:
 			self.fitness += self.loss
-		elif self.loss > avg:
+		elif self.loss > thresh:
 			self.fitness -= self.loss
 
 	def mutate(self, p1, p2):
-		weight = random.uniform(0, 1)
-		for i in range(0, life):
-			self.dna.append([elem1 * weight for elem1 in p1[i]] + [elem2 * (1-weight) for elem2 in p2[i]])
+		weight = random.randint(0, life)
+		self.dna[0:weight] = p1[0:weight]
+		self.dna[weight+1:life] = p2[weight+1:life]

@@ -56,45 +56,6 @@ def searchSorted(lookup, sample_array):
     indices = np.arange(lookup.shape[0])[idx1]
     return indices
 
-def indivPreprocessing(power_curve):
-    n_turbs       =   50
-
-    slices_drct   = np.roll(np.arange(10, 361, 10, dtype=np.float32), 1)
-    n_slices_drct = slices_drct.shape[0]
-    
-    slices_sped   = [0.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 
-                        18.0, 20.0, 22.0, 24.0, 26.0, 28.0, 30.0]
-    n_slices_sped = len(slices_sped)-1
-    
-    n_wind_instances = (n_slices_drct)*(n_slices_sped)
-    
-    wind_instances = np.zeros((n_wind_instances,2), dtype=np.float32)
-    counter = 0
-    for i in range(n_slices_drct):
-        for j in range(n_slices_sped): 
-            
-            wind_drct =  slices_drct[i]
-            wind_sped = (slices_sped[j] + slices_sped[j+1])/2
-            
-            wind_instances[counter,0] = wind_sped
-            wind_instances[counter,1] = wind_drct
-            counter += 1
-
-
-    wind_drcts =  np.radians(wind_instances[:,1] - 90)
-
-    cos_dir = np.cos(wind_drcts).reshape(n_wind_instances,1)
-    sin_dir = np.sin(wind_drcts).reshape(n_wind_instances,1)
-    
-    wind_sped_stacked = wind_instances[:,0]
-   
-    indices = searchSorted(power_curve[:,0], wind_instances[:,0])
-    C_t     = power_curve[indices,1]
-    C_t     = np.column_stack([C_t]*(n_turbs))
-    C_t     = C_t.reshape(n_wind_instances, n_turbs)
-    
-    return(n_wind_instances, cos_dir, sin_dir, wind_sped_stacked, C_t)
-
 def getAvgLoss(turb_rad, turb_coords, power_curve, wind_inst_freq, 
             n_wind_instances, cos_dir, sin_dir, wind_sped_stacked, C_t):
 

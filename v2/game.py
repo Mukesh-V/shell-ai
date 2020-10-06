@@ -9,7 +9,7 @@ from population import Pop
 
 if __name__ == "__main__":
 
-    year = '2017'
+    year = '2015'
     gen  = 50
     life = 15
 
@@ -40,7 +40,9 @@ if __name__ == "__main__":
 
             turbo_coords = np.asarray(population.coords)
             AEP = getAEP(config['rad'], turbo_coords, power_curve, wind_inst_freq, n_wind_instances, cos_dir, sin_dir, wind_sped_stacked, C_t)
-            plotPts(population.coords, AEP, 0.1)
+            plotPts(population.coords, AEP, 0.01)
+            if AEP > 572.0:
+                population.writeCSV(year + '_' + str(round(AEP,2)) + '.csv')
 
             loss = getAvgLoss(config['rad'], turbo_coords, power_curve, wind_inst_freq, n_wind_instances, cos_dir, sin_dir, wind_sped_stacked, C_t)
             loss = loss * 100.0
@@ -50,9 +52,6 @@ if __name__ == "__main__":
             c += 1
             population.idx = c
             population.coords = []
-
-            if AEP > 569.0:
-                population.writeCSV(year + '_' + str(round(AEP,2)) + '.csv')
 
         population.selection()
         population.crossover()
